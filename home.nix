@@ -6,6 +6,7 @@
   };
 
   programs.home-manager.enable = true;
+  home.packages = with pkgs; [ clang_16 rustup tokei typst typst-lsp wget ];
 
   programs.atuin = {
     enable = true;
@@ -70,5 +71,16 @@
     enableNushellIntegration = true;
   };
   
-  home.packages = with pkgs; [ tokei typst typst-lsp ];
+
+  home.file.".cargo/config.toml".text = ''
+    [build]
+    target-dir = ".cache/cargo_target"
+
+    [target.x86_64-unknown-linux-gnu]
+    linker = "${lib.getExe pkgs.llvmPackages_16.clang}"
+    rustflags = ["-Clink-arg=-fuse-ld=${lib.getExe pkgs.mold}", "-Ctarget-cpu=native"]
+
+    [unstable]
+    gc = true
+  '';
 }

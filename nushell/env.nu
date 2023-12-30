@@ -103,5 +103,3 @@ $env.PATH = ($env.PATH | split row (char esep) | prepend '/run/current-system/sw
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/run/wrappers/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/home/dawn/.nix-profile/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/etc/profiles/per-user/dawn/bin')
-
-$env.CARGO_TARGET_DIR = "/home/dawn/.artifacts/cargo"
