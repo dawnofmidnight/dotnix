@@ -25,7 +25,9 @@ def create_left_prompt [] {
     let separator_color = (if (is-admin) { ansi light_red_bold } else { ansi light_green_bold })
     let path_segment = $"($path_color)($dir)"
 
-    $path_segment | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)"
+    let host_part = $"($path_color)(hostname)($separator_color) @ ($path_color)"
+    let path_part = $path_segment | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)"
+    $host_part | append $path_part
 }
 
 def create_right_prompt [] {
